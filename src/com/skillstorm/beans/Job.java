@@ -1,6 +1,6 @@
-package com.skillstorm;
+package com.skillstorm.beans;
 
-public class Jobs {
+public class Job {
 	
 	private String id;
 	private String title;
@@ -13,7 +13,7 @@ public class Jobs {
 	private String field;
 	private String contactEmail;
 	
-	public Jobs(String id, String title, String description, String streetAddress, String city, String state, int zip,
+	public Job(String id, String title, String description, String streetAddress, String city, String state, int zip,
 			double salary, String field, String contactEmail) {
 		this.id = id;
 		this.title = title;

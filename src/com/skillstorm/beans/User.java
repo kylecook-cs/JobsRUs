@@ -1,8 +1,8 @@
-package com.skillstorm;
+package com.skillstorm.beans;
 
 import java.io.File;
 
-public class Users {
+public class User {
 	
 	private String id;
 	private String password;
@@ -11,7 +11,7 @@ public class Users {
 	private String phoneNumber;
 	private File resume;
 	
-	public Users(String id, String password, String name, String email, String phoneNumber, File resume) {
+	public User(String id, String password, String name, String email, String phoneNumber, File resume) {
 		this.id = id;
 		this.password = password;
 		this.name = name;
