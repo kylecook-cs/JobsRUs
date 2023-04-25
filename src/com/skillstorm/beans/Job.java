@@ -13,6 +13,21 @@ public class Job {
 	private String field;
 	private String contactEmail;
 	
+	public Job() {}
+	
+	public Job(String[] jobs) {
+		this.id = jobs[0];
+		this.title = jobs[1];
+		this.description = jobs[2];
+		this.streetAddress = jobs[3];
+		this.city = jobs[4]; 
+		this.state = jobs[5]; 
+		this.zip =  Integer.parseInt(jobs[6]);
+		this.salary = Double.parseDouble(jobs[7]);
+		this.field = jobs[8];
+		this.contactEmail = jobs[9];
+	}
+	
 	public Job(String id, String title, String description, String streetAddress, String city, String state, int zip,
 			double salary, String field, String contactEmail) {
 		this.id = id;
@@ -109,9 +124,14 @@ public class Job {
 
 	@Override
 	public String toString() {
-		return "Jobs [id=" + id + ", title=" + title + ", description=" + description + ", streetAddress="
-				+ streetAddress + ", city=" + city + ", state=" + state + ", zip=" + zip + ", salary=" + salary
-				+ ", field=" + field + ", contactEmail=" + contactEmail + "]";
+		return String.format("%s!!!%s!!!%s!!!%s!!!%s!!!%s!!!%d!!!%.2f!!!%s!!!%s", 
+							  id, title, description, streetAddress, city, state, zip, salary, field, contactEmail);
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		return this.toString().equals(other.toString());
+		
 	}
 	
 	
