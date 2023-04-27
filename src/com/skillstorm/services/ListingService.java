@@ -171,7 +171,6 @@ public class ListingService {
 	}
 	
 	public void displayListing(ArrayList<Job> jobList) {
-		System.out.println("\n********************");
 		for (Job j : jobList) { // loop through list to display each job
 			displayListing(j);
 		}
