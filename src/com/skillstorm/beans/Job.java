@@ -2,7 +2,7 @@ package com.skillstorm.beans;
 
 // this class creates a Job object
 public class Job {
-	
+
 	private String id;
 	private String title;
 	private String description;
@@ -14,24 +14,25 @@ public class Job {
 	private String field;
 	private String contactEmail;
 	private String jobKey;
-	
+
 	// Constructors
-	public Job() {}
-	
+	public Job() {
+	}
+
 	public Job(String[] jobs) {
 		this.id = jobs[0];
 		this.title = jobs[1];
 		this.jobKey = id + " " + title;
 		this.description = jobs[2];
 		this.streetAddress = jobs[3];
-		this.city = jobs[4]; 
-		this.state = jobs[5]; 
-		this.zip =  Integer.parseInt(jobs[6]);
+		this.city = jobs[4];
+		this.state = jobs[5];
+		this.zip = Integer.parseInt(jobs[6]);
 		this.salary = Double.parseDouble(jobs[7]);
 		this.field = jobs[8];
 		this.contactEmail = jobs[9];
 	}
-	
+
 	public Job(String id, String title, String description, String streetAddress, String city, String state, int zip,
 			double salary, String field, String contactEmail) {
 		this.id = id;
@@ -137,12 +138,12 @@ public class Job {
 	// Override methods
 	@Override
 	public String toString() {
-		return String.format("%s!!!%s!!!%s!!!%s!!!%s!!!%s!!!%d!!!%.2f!!!%s!!!%s", 
-							  id, title, description, streetAddress, city, state, zip, salary, field, contactEmail);
+		return String.format("%s!!!%s!!!%s!!!%s!!!%s!!!%s!!!%d!!!%.2f!!!%s!!!%s", id, title, description, streetAddress,
+				city, state, zip, salary, field, contactEmail);
 	}
-	
+
 	@Override
 	public boolean equals(Object other) {
-		return this.toString().equals(other.toString());	
+		return this.toString().equals(other.toString());
 	}
 }

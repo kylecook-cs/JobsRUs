@@ -11,18 +11,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
 import com.skillstorm.beans.Job;
 
 // This class is a service class to update the job postings
 public class ListingService {
-	
+
 	static Scanner in = new Scanner(System.in); // scanner object
 	final private String listingFile = "src\\Listings\\Listings.csv"; // file path
 	private HashMap<String, Job> jobs; // map that holds all the job listings
+	private static ListingService instance = null;
 
-	public ListingService() { // constructor that creates map of all current job postings in file
+	private ListingService() { // constructor that creates map of all current job postings in file
 		this.jobs = readListings();
+	}
+
+	public static ListingService getInstance() {
+		if (instance == null) {
+			instance = new ListingService();
+		}
+		return instance;
 	}
 
 	// this method reads in the listings file's contents and maps them to a hashmap
@@ -35,7 +42,8 @@ public class ListingService {
 					String[] jobPosts = line.split(","); // split line into array
 					String id = jobPosts[0];
 					String title = jobPosts[1];
-					jobs.put(id + " " + title, new Job(jobPosts)); // adds job to map with it's id and title being the	key
+					jobs.put(id + " " + title, new Job(jobPosts)); // adds job to map with it's id and title being the
+																	// key
 				}
 			}
 		} catch (FileNotFoundException ex) {
@@ -88,20 +96,18 @@ public class ListingService {
 			updateListing(j, true);
 		}
 	}
-	
+
 	// this method allows users to browse the job listings
 	public void browseJobs() {
 		boolean again = true; // flag for user's loop prompt
 		int option = 0; // placeholder for user's response
-		System.out.println("**** Browse Jobs ****"); 
+		System.out.println("**** Browse Jobs ****");
 		while (again) {
-			System.out.println("Browse options: "
-					+ "\n1: All"
-					+ "\n2: Filter");
+			System.out.println("Browse options: " + "\n1: All" + "\n2: Filter");
 			do {
 				System.out.print("Please enter 1 or 2: ");
 				option = in.nextInt();
-				
+
 			} while (option != 1 && option != 2); // check for user input to match desired answer set
 			if (option == 1) {
 				displayAllListings(); // display all the available job listings
@@ -110,27 +116,30 @@ public class ListingService {
 				filterJobs(); // // user chose to search listings with filters
 			}
 			System.out.print("Would you like to browse again? (y):  ");
-			String answer = in.nextLine().toLowerCase().trim(); // 
-			if (!answer.equals("y")) { // checks user's prompt for loop 
+			String answer = in.nextLine().toLowerCase().trim(); //
+			if (!answer.equals("y")) { // checks user's prompt for loop
 				break; // user's doesn't want to search any more
-			}		
+			}
 		}
 	}
-	
+
 	// this method creates list of all the filtered jobs the user's wanted
 	private ArrayList<Job> filter(ArrayList<String> filters) {
 		ArrayList<Job> filteredJobs = new ArrayList<>();
 		for (Map.Entry<String, Job> entry : jobs.entrySet()) { // loop through job listings
-			Job j = entry.getValue(); 
+			Job j = entry.getValue();
 			for (String f : filters) { // loop through filter list
-				if (j.toString().contains(f) && !filteredJobs.contains(j)) { // check if job listings contains filters
+				if (j.toString().toLowerCase().contains(f.toLowerCase()) && !filteredJobs.contains(j)) { // check if job
+																											// listings
+																											// contains
+																											// filters
 					filteredJobs.add(j); // if there's a match add to filtered jobs list
 				}
 			}
-		}		
-		return filteredJobs;	
+		}
+		return filteredJobs;
 	}
-	
+
 	// this method prompts the user for filters to show relevant listings
 	private void filterJobs() {
 		ArrayList<String> filters = new ArrayList<>();
@@ -148,6 +157,7 @@ public class ListingService {
 				break;
 			}
 		}
+		System.out.println("\nYour filters : " + filters);
 		displayListing(filter(filters)); // display the listings that coordinate with user's desired filters
 	}
 
@@ -164,12 +174,13 @@ public class ListingService {
 		System.out.println("********************");
 		System.out.println(String.format("ID: %s Title: %s", j.getId(), j.getTitle()));
 		System.out.println("Description: " + j.getDescription());
-		System.out.println(String.format("Address: %s, %s, %s, %d", j.getStreetAddress(), j.getCity(), j.getState(), j.getZip()));
+		System.out.println(
+				String.format("Address: %s, %s, %s, %d", j.getStreetAddress(), j.getCity(), j.getState(), j.getZip()));
 		System.out.println(String.format("Salary: %s", money.format(j.getSalary())));
 		System.out.println("Field: " + j.getField());
 		System.out.println("Contact Email: " + j.getContactEmail() + "\n");
 	}
-	
+
 	public void displayListing(ArrayList<Job> jobList) {
 		for (Job j : jobList) { // loop through list to display each job
 			displayListing(j);
