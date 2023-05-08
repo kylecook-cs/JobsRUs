@@ -1,6 +1,6 @@
 package com.skillstorm.beans;
 
-import java.io.File;
+import java.util.ArrayList;
 
 public class User {
 	
@@ -9,9 +9,32 @@ public class User {
 	private String name;
 	private String email;
 	private String phoneNumber;
-	private File resume;
+	private String resume;
+	private ArrayList<String> jobsApplied;
+	private String userKey;
 	
-	public User(String id, String password, String name, String email, String phoneNumber, File resume) {
+	public User() {
+		jobsApplied = new ArrayList<>();
+	}
+	
+	public User(String[] data) {
+		this();
+		id = data[0];
+		password = data[1];
+		name = data[2];
+		email = data[3];
+		phoneNumber = data[4];
+		resume = data[5];
+		String[] applied = data[6].split("?+!");
+		for (String job : applied) {
+			if (job != null) {
+				jobsApplied.add(job);
+			}
+		}
+	}
+	
+	public User(String id, String password, String name, String email, String phoneNumber, String resume) {
+		this();
 		this.id = id;
 		this.password = password;
 		this.name = name;
@@ -19,7 +42,7 @@ public class User {
 		this.phoneNumber = phoneNumber;
 		this.resume = resume;
 	}
-
+	
 	public String getId() {
 		return id;
 	}
@@ -60,12 +83,21 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public File getResume() {
+	public String getResume() {
 		return resume;
 	}
 
-	public void setResume(File resume) {
+	public void setResume(String resume) {
 		this.resume = resume;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<String> getSavedJobs() {
+		return (ArrayList<String>) jobsApplied.clone();
+	}
+	
+	public String getUserKey() {
+		return userKey;
 	}
 
 	@Override
