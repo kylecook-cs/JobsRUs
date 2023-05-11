@@ -7,7 +7,7 @@ import com.skillstorm.services.ResumeHandler;
 public class JobsApp {
 
 	public static void main(String[] args) {
-		ListingService ls = ListingService.getInstance();
+		//ListingService ls = ListingService.getInstance();
 		ResumeHandler rh = new ResumeHandler();
 //
 //
@@ -34,7 +34,12 @@ public class JobsApp {
 //		ls.browseJobs();
 		
 		
-		rh.readResume("src\\Users\\Resume.txt");
+//		rh.readResume("src\\Users\\Resume.txt");
+//		rh.displayResume();
+		rh.readResume("src\\Users\\TestResume.txt");
+		rh.editResume();
+		rh.displayResume();
+		rh.writeResume("src\\Users\\TestResume.txt");
 		
 
 	}
