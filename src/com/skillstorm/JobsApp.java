@@ -37,6 +37,7 @@ public class JobsApp {
 //		rh.readResume("src\\Users\\Resume.txt");
 //		rh.displayResume();
 		rh.readResume("src\\Users\\TestResume.txt");
+		rh.displayResume();
 		rh.editResume();
 		rh.displayResume();
 		rh.writeResume("src\\Users\\TestResume.txt");
