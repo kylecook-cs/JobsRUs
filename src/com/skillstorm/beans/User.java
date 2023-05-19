@@ -1,7 +1,5 @@
 package com.skillstorm.beans;
 
-import java.util.ArrayList;
-
 public class User {
 	
 	private String id;
@@ -10,31 +8,18 @@ public class User {
 	private String email;
 	private String phoneNumber;
 	private String resume;
-	private ArrayList<String> jobsApplied;
-	private String userKey;
-	
-	public User() {
-		jobsApplied = new ArrayList<>();
-	}
+
 	
 	public User(String[] data) {
-		this();
 		id = data[0];
 		password = data[1];
 		name = data[2];
 		email = data[3];
 		phoneNumber = data[4];
 		resume = data[5];
-		String[] applied = data[6].split("?+!");
-		for (String job : applied) {
-			if (job != null) {
-				jobsApplied.add(job);
-			}
-		}
 	}
 	
 	public User(String id, String password, String name, String email, String phoneNumber, String resume) {
-		this();
 		this.id = id;
 		this.password = password;
 		this.name = name;
@@ -89,21 +74,10 @@ public class User {
 
 	public void setResume(String resume) {
 		this.resume = resume;
-	}
+	}	
 	
-	@SuppressWarnings("unchecked")
-	public ArrayList<String> getSavedJobs() {
-		return (ArrayList<String>) jobsApplied.clone();
-	}
-	
-	public String getUserKey() {
-		return userKey;
-	}
-
 	@Override
 	public String toString() {
-		return "Users [id=" + id + ", name=" + name + ", email=" + email + ", phoneNumber="
-				+ phoneNumber + ", resume=" + resume + "]";
-	}
-	
+		return String.format("%s!!!%s!!!%s!!!%s!!!%s!!!%s", id, password, name, email, phoneNumber, resume);
+	}	
 }
