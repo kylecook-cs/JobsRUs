@@ -1,7 +1,7 @@
-                              Kyle Cook
-                    12345 Java Way, Austin, TX, 78628
-                           cook1.kyle@gmail.com
-                             123-456-7899
+                              John Doe
+                    123 address st, City, CA, 12345
+                           email@email.com
+                             123-456-7890
 Education
   BS Computer Science  - San Jose State University
    •	GPA - 3.5

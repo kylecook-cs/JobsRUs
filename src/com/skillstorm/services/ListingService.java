@@ -20,6 +20,7 @@ public class ListingService {
 	final private String listingFile = "src\\Listings\\Listings.csv"; // file path
 	private HashMap<String, Job> jobs; // map that holds all the job listings
 	private static ListingService instance = null;
+	static int id = 0;
 
 	private ListingService() { // constructor that creates map of all current job postings in file
 		this.jobs = readListings();
@@ -129,10 +130,7 @@ public class ListingService {
 		for (Map.Entry<String, Job> entry : jobs.entrySet()) { // loop through job listings
 			Job j = entry.getValue();
 			for (String f : filters) { // loop through filter list
-				if (j.toString().toLowerCase().contains(f.toLowerCase()) && !filteredJobs.contains(j)) { // check if job
-																											// listings
-																											// contains
-																											// filters
+				if (j.toString().toLowerCase().contains(f.toLowerCase()) && !filteredJobs.contains(j)) { // check if job listings contains filters
 					filteredJobs.add(j); // if there's a match add to filtered jobs list
 				}
 			}

@@ -16,9 +16,6 @@ public class Job {
 	private String jobKey;
 
 	// Constructors
-	public Job() {
-	}
-
 	public Job(String[] jobs) {
 		this.id = jobs[0];
 		this.title = jobs[1];
