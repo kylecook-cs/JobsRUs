@@ -1,0 +1,12 @@
+                              Kyle Cook
+                    12345 Java Way, Austin, TX, 78628
+                           cook1.kyle@gmail.com
+                             123-456-7899
+Education
+  BS Computer Science  - San Jose State University
+   •	GPA - 3.5
+   •	Software Developer Club VP
+  Java Foundations Associate - Oracle
+Experience
+  Software Developer - Google                    June 2016 - December 2022
+   •	Create, Maintain, and Debug App Features
