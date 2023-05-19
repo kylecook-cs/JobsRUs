@@ -1,7 +1,5 @@
 package com.skillstorm.beans;
 
-import java.io.File;
-
 public class User {
 	
 	private String id;
@@ -9,9 +7,19 @@ public class User {
 	private String name;
 	private String email;
 	private String phoneNumber;
-	private File resume;
+	private String resume;
+
 	
-	public User(String id, String password, String name, String email, String phoneNumber, File resume) {
+	public User(String[] data) {
+		id = data[0];
+		password = data[1];
+		name = data[2];
+		email = data[3];
+		phoneNumber = data[4];
+		resume = data[5];
+	}
+	
+	public User(String id, String password, String name, String email, String phoneNumber, String resume) {
 		this.id = id;
 		this.password = password;
 		this.name = name;
@@ -19,7 +27,7 @@ public class User {
 		this.phoneNumber = phoneNumber;
 		this.resume = resume;
 	}
-
+	
 	public String getId() {
 		return id;
 	}
@@ -60,18 +68,16 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public File getResume() {
+	public String getResume() {
 		return resume;
 	}
 
-	public void setResume(File resume) {
+	public void setResume(String resume) {
 		this.resume = resume;
-	}
-
+	}	
+	
 	@Override
 	public String toString() {
-		return "Users [id=" + id + ", name=" + name + ", email=" + email + ", phoneNumber="
-				+ phoneNumber + ", resume=" + resume + "]";
-	}
-	
+		return String.format("%s!!!%s!!!%s!!!%s!!!%s!!!%s", id, password, name, email, phoneNumber, resume);
+	}	
 }
