@@ -1,12 +1,11 @@
-                              John Doe
-                    123 address st, City, CA, 12345
-                           email@email.com
-                             123-456-7890
-Education
-  BS Computer Science  - San Jose State University
-   •	GPA - 3.5
-   •	Software Developer Club VP
-  Java Foundations Associate - Oracle
-Experience
-  Software Developer - Google                    June 2016 - December 2022
-   •	Create, Maintain, and Debug App Features
+                              John Smith
+                    654 Jones Ave, City, ST, 98765
+                           smithj@gmail.com
+                             321-654-9087
+*EDUCATION*
+  BA Business - Texas State University
+   •	Finance Club Treasurer
+   •	GPA 3.7
+*EXPERIENCE*
+  Financial Consultant - Make Money INC                    June 2014 - present
+   •	set up financial portfolios for clients

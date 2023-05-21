@@ -3,12 +3,12 @@
                            john_smith@gmail.com
                              123-456-7890
 
-EDUCATION
+*EDUCATION*
   BS Computer Science - San Jose State University
    •	Graduate with Honors
    •	Software Development Club VP
 
-EXPERIENCE
+*EXPERIENCE*
   Software Developer - Google                    September 2021 - March 2023
    •	Create app features
    •	Debug app features
