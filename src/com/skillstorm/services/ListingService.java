@@ -20,9 +20,8 @@ public class ListingService {
 	final private String listingFile = "src\\Listings\\Listings.csv"; // file path
 	private HashMap<String, Job> jobs; // map that holds all the job listings
 	private static ListingService instance = null;
-	static int id = 0;
 
-	private ListingService() { // constructor that creates map of all current job postings in file
+	public ListingService() { // constructor that creates map of all current job postings in file
 		this.jobs = readListings();
 	}
 
@@ -40,10 +39,12 @@ public class ListingService {
 			String line;
 			while ((line = br.readLine()) != null) { // while there is a line in file
 				if (!line.isEmpty()) { // checks if line has any values
-					String[] jobPosts = line.split(","); // split line into array
+					String[] jobPosts = line.split("!!!"); // split line into array
+					System.out.println(jobPosts);
+					System.out.println(jobPosts[0]);
 					String id = jobPosts[0];
-					String title = jobPosts[1];
-					jobs.put(id + " " + title, new Job(jobPosts)); // adds job to map with it's id and title being the
+					System.out.println(id);
+					jobs.put(id, new Job(jobPosts)); // adds job to map with it's id and title being the
 																	// key
 				}
 			}
@@ -56,10 +57,9 @@ public class ListingService {
 	}
 
 	// this method updates the file with map's values
-	public void updateListing(Job j, boolean flag) {
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(listingFile, flag))) { // try to open file to write
-																							// to
-			String listing = j.toString().replace("!!!", ","); // get job in desired format to append to file
+	public void updateListings(Job j, boolean flag) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(listingFile, flag))) { // try to open file to write																					// to
+			String listing = j.toString();
 			bw.append(listing); // append job to file
 			bw.newLine();
 		} catch (IOException e) {
@@ -71,15 +71,15 @@ public class ListingService {
 	private void updateLoop() {
 		boolean flag = false; // set to false for first iteration, clears file
 		for (Map.Entry<String, Job> entry : jobs.entrySet()) { // loop through values in map
-			updateListing(entry.getValue(), flag); // pass job value to append to file
+			updateListings(entry.getValue(), flag); // pass job value to append to file
 			flag = true; // changes to append instead of overwriting file
 		}
 	}
 
 	// this method removes a listing from map and file
 	public void removeListing(Job j) {
-		if (jobs.containsKey(j.getJobKey())) { // check if job map contains this job
-			jobs.remove(j.getJobKey()); // if so remove it
+		if (jobs.containsKey(j.getId())) { // check if job map contains this job
+			jobs.remove(j.getId()); // if so remove it
 		}
 		updateLoop(); // update file
 	}
@@ -87,14 +87,14 @@ public class ListingService {
 	// this method adds a listing to the map and file
 	public void addListing(Job j) {
 		if (jobs.isEmpty()) { // checks if job map is empty
-			updateListing(j, false); // if so add the job to file
-			jobs.put(j.getJobKey(), j); // add job to jobs map
-		} else if (jobs.containsKey(j.getJobKey())) { // checks if job key is already in file
-			jobs.replace(j.getJobKey(), j); // replaces in case job's properties are updated
+			updateListings(j, false); // if so add the job to file
+			jobs.put(j.getId(), j); // add job to jobs map
+		} else if (jobs.containsKey(j.getId())) { // checks if job key is already in file
+			jobs.replace(j.getId(), j); // replaces in case job's properties are updated
 			updateLoop();
 		} else {
-			jobs.put(j.getJobKey(), j); // job was not in job map so add it
-			updateListing(j, true);
+			jobs.put(j.getId(), j); // job was not in job map so add it
+			updateListings(j, true);
 		}
 	}
 
@@ -161,8 +161,10 @@ public class ListingService {
 
 	// this method displays all the job listing info in a neat format
 	public void displayAllListings() {
-		for (Map.Entry<String, Job> entry : jobs.entrySet()) { // loop through job map to display a job's properties
-			displayListing(entry.getValue());
+		if(!jobs.isEmpty()) {
+			for (Map.Entry<String, Job> entry : jobs.entrySet()) { // loop through job map to display a job's properties
+				displayListing(entry.getValue());
+			}
 		}
 	}
 
@@ -170,7 +172,7 @@ public class ListingService {
 	public void displayListing(Job j) {
 		NumberFormat money = NumberFormat.getCurrencyInstance(); // creates currency formatter
 		System.out.println("********************");
-		System.out.println(String.format("ID: %s Title: %s", j.getId(), j.getTitle()));
+		System.out.println(String.format("ID: %s \nTitle: %s", j.getId(), j.getTitle()));
 		System.out.println("Description: " + j.getDescription());
 		System.out.println(
 				String.format("Address: %s, %s, %s, %d", j.getStreetAddress(), j.getCity(), j.getState(), j.getZip()));
@@ -184,4 +186,11 @@ public class ListingService {
 			displayListing(j);
 		}
 	}
+
+	@SuppressWarnings("unchecked")
+	public HashMap<String, Job> getJobs() {
+		return (HashMap<String, Job>) jobs.clone();
+	}
+	
+	
 }

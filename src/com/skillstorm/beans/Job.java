@@ -1,5 +1,9 @@
 package com.skillstorm.beans;
 
+import java.util.UUID;
+
+import com.skillstorm.services.ListingService;
+
 // this class creates a Job object
 public class Job {
 
@@ -13,13 +17,11 @@ public class Job {
 	private double salary;
 	private String field;
 	private String contactEmail;
-	private String jobKey;
 
 	// Constructors
 	public Job(String[] jobs) {
 		this.id = jobs[0];
 		this.title = jobs[1];
-		this.jobKey = id + " " + title;
 		this.description = jobs[2];
 		this.streetAddress = jobs[3];
 		this.city = jobs[4];
@@ -30,11 +32,14 @@ public class Job {
 		this.contactEmail = jobs[9];
 	}
 
-	public Job(String id, String title, String description, String streetAddress, String city, String state, int zip,
+	public Job(String title, String description, String streetAddress, String city, String state, int zip,
 			double salary, String field, String contactEmail) {
-		this.id = id;
+		String randomID;
+		do {
+			randomID = UUID.randomUUID().toString();
+			this.id = randomID;
+		} while(ListingService.getInstance().getJobs().containsKey(randomID));
 		this.title = title;
-		this.jobKey = id + " " + title;
 		this.description = description;
 		this.streetAddress = streetAddress;
 		this.city = city;
@@ -50,22 +55,12 @@ public class Job {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-		this.jobKey = id + " " + this.title;
-	}
-
 	public String getTitle() {
 		return title;
 	}
 
 	public void setTitle(String title) {
 		this.title = title;
-		this.jobKey = this.id + " " + title;
-	}
-
-	public String getJobKey() {
-		return jobKey;
 	}
 
 	public String getDescription() {
@@ -131,7 +126,7 @@ public class Job {
 	public void setContactEmail(String contactEmail) {
 		this.contactEmail = contactEmail;
 	}
-
+	
 	// Override methods
 	@Override
 	public String toString() {

@@ -2,6 +2,7 @@ package com.skillstorm.services;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -169,6 +170,38 @@ public class ResumeHandler {
 				flag = false;
 			}
 		} while (flag);
+	}
+
+	public void resumeOptions(String name) {
+		String fileName = "src\\Users\\" + name + ".txt";
+		int choice = 0;
+		if (checkFile(fileName)) {
+			do {
+				System.out.printf("%n1. Read Resume" + "%n2. Edit Resume" + "%n9. Return" + "%nEnter choice: ");
+				choice = Integer.parseInt(in.nextLine().trim().replaceAll("[\\D]", "")); // removes all non-digit
+																							// characters
+			} while (choice != 1 && choice != 2 && choice != 9);
+
+			if (choice == 1) {
+				readResume(fileName);
+			} else if (choice == 2) {
+				editResume();
+				writeResume(fileName);
+			} else if (choice == 3) {
+				editResume();
+				writeResume(fileName);
+			}
+		} else {
+			System.out.println("You dont have a resume on file.");
+			System.out.print("Would you like to create one? (Y/N) : ");
+			if ("y".equalsIgnoreCase(in.nextLine())) {
+				createResume();
+			}
+		}
+	}
+
+	private boolean checkFile(String fileName) {
+		return new File(fileName).exists();
 	}
 
 	// This method will create a Resume file based on user prompt stored in
