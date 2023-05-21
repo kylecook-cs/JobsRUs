@@ -14,7 +14,7 @@ public class ResumeHandler {
 	private ArrayList<String> resume = new ArrayList<>();
 	private boolean flag = true;
 	private static Scanner in = new Scanner(System.in);
-
+	
 	// This method is to read the resume file and display it
 	public void readResume(String filePath) {
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) { // read in the resume file
