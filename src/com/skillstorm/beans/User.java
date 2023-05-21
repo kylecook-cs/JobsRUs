@@ -4,28 +4,31 @@ public class User {
 	
 	private String id;
 	private String password;
-	private String name;
+	private String firstName;
+	private String lastName;
 	private String email;
 	private String phoneNumber;
 	private String resume;
-
+	
 	
 	public User(String[] data) {
 		id = data[0];
 		password = data[1];
-		name = data[2];
-		email = data[3];
-		phoneNumber = data[4];
-		resume = data[5];
+		firstName = data[2];
+		lastName = data[3];
+		email = data[4];
+		phoneNumber = data[5];
+		resume = data[6];
 	}
 	
-	public User(String id, String password, String name, String email, String phoneNumber, String resume) {
+	public User(String id, String password, String firstName, String lastName, String email, String phoneNumber) {
 		this.id = id;
 		this.password = password;
-		this.name = name;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
-		this.resume = resume;
+		resume = id + "-" + lastName + firstName;
 	}
 	
 	public String getId() {
@@ -44,12 +47,20 @@ public class User {
 		this.password = password;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String name) {
+		this.firstName = name;
+	}
+	
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getEmail() {
@@ -71,13 +82,9 @@ public class User {
 	public String getResume() {
 		return resume;
 	}
-
-	public void setResume(String resume) {
-		this.resume = resume;
-	}	
 	
 	@Override
 	public String toString() {
-		return String.format("%s!!!%s!!!%s!!!%s!!!%s!!!%s", id, password, name, email, phoneNumber, resume);
-	}	
+		return String.format("%s!!!%s!!!%s!!!%s!!!%s!!!%s!!!%s", id, password, firstName, lastName, email, phoneNumber, resume);
+	}		
 }
