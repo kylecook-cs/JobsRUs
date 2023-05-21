@@ -7,12 +7,12 @@ import com.skillstorm.services.ResumeHandler;
 public class JobsApp {
 
 	public static void main(String[] args) {
-		//ListingService ls = ListingService.getInstance();
-		ResumeHandler rh = new ResumeHandler();
+		ListingService ls = ListingService.getInstance();
+//		ResumeHandler rh = new ResumeHandler();
 //
 //
-//		ls.addListing(new Job("12345", "Software Developer", "Build Maintain Debug Features", "123 Java Ave",
-//				"San Diego", "CA", 92113, 100_000, "Computer", "google@gmail.com"));
+		ls.addListing(new Job("Software Developer", "Build Maintain Debug Features", "123 Java Ave",
+				"San Diego", "CA", 92113, 100_000, "Computer", "google@gmail.com"));
 //
 //		ls.addListing(new Job("56789", "Software Engineer", "Full Stack Engineer", "987 Python Way", "Georgetown", "TX",
 //				78628, 125_000, "Computer", "contact@dell.com"));
@@ -29,19 +29,19 @@ public class JobsApp {
 //		ls.removeListing(new Job("12345", "Software Developer", "Build Maintain Debug Features", "123 Java Ave",
 //				"San Diego", "CA", 92113, 100_000, "Computer", "google@gmail.com"));
 //
-//		ls.displayAllListings();
+		ls.displayAllListings();
 //		
 //		ls.browseJobs();
 		
 		
 //		rh.readResume("src\\Users\\Resume.txt");
 //		rh.displayResume();
-		rh.readResume("src\\Users\\TestResume.txt");
-		rh.displayResume();
-		rh.editResume();
-		rh.displayResume();
-		rh.writeResume("src\\Users\\TestResume.txt");
-		
+//		rh.readResume("src\\Users\\TestResume.txt");
+//		rh.displayResume();
+//		rh.editResume();
+//		rh.displayResume();
+//		rh.writeResume("src\\Users\\TestResume.txt");
+//		
 
 	}
 
