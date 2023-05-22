@@ -1,5 +1,4 @@
 package com.skillstorm.services;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,13 +8,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 // This class is a handler for a Resume file 
 public class ResumeHandler {
 	private ArrayList<String> resume = new ArrayList<>();
 	private boolean flag = true;
 	private static Scanner in = new Scanner(System.in);
-
 	// This method is to read the resume file and display it
 	private void readResume(String filePath) {
 		resume.clear();
@@ -32,7 +29,6 @@ public class ResumeHandler {
 			e.printStackTrace();
 		}
 	}
-
 	// This method will take in an ArrayList that contains all the lines
 	// of a Resume file and displays it
 	private void displayResume() {
@@ -40,7 +36,6 @@ public class ResumeHandler {
 			System.out.println(line); // displays line
 		}
 	}
-
 	// This method is to prompt user for header section data of Resume file
 	private void header() {
 		try {
@@ -59,7 +54,6 @@ public class ResumeHandler {
 			resume.add(4, "*EDUCATION*");
 		}
 	}
-
 	// This method is to prompt user for education section data of Resume file
 	private void education() {
 		flag = true;
@@ -97,7 +91,6 @@ public class ResumeHandler {
 			}
 		}
 	}
-
 	// This method is to prompt user for experience section data of Resume file
 	private void experience() {
 		flag = true;
@@ -132,7 +125,6 @@ public class ResumeHandler {
 			}
 		}
 	}
-
 	// This method is called to create the ArrayList that will hold lines of the
 	// Resume file
 	private void createResume() {
@@ -141,7 +133,6 @@ public class ResumeHandler {
 		education();
 		experience();
 	}
-
 	// This method is used to edit sections of a Resume file
 	private void editResume() {
 		String choice = "";
@@ -171,7 +162,6 @@ public class ResumeHandler {
 			}
 		} while (flag);
 	}
-
 	public void resumeOptions(String resume) {
 		String choice = "";
 		if (System.getProperty("user.dir").endsWith("bin")) {
@@ -209,11 +199,9 @@ public class ResumeHandler {
 		}
 		resumeOptions(resume);
 	}
-
 	private boolean checkFile(String fileName) {
 		return new File(fileName).exists();
 	}
-
 	// This method will create a Resume file based on user prompt stored in
 	// ArrayList
 	private void writeResume(String filePath) {
