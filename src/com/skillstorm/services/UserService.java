@@ -62,10 +62,10 @@ public final class UserService {
 		do {
 			System.out.printf("%n1. Log in"
 							+ "%n2. Create account"
-							+ "%n3. Go back to start menu"
+							+ "%n9. Go back to start menu"
 							+ "%nEnter choice: ");
 			choice = in.nextLine().trim().replaceAll("[\\D]", "");
-		} while (!"1".equals(choice) && !"2".equals(choice) && !"3".equals(choice));
+		} while (!"1".equals(choice) && !"2".equals(choice) && !"9".equals(choice));
 
 		if ("1".equals(choice)) {
 			existingUser();
