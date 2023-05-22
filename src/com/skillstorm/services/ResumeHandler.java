@@ -171,26 +171,27 @@ public class ResumeHandler {
 
 	public void resumeOptions(String resume) {
 		String choice = "";
+		String resumePath = "";
 		if (System.getProperty("user.dir").endsWith("bin")) {
 			File resumeDir = new File("\\Users\\" + resume);
 			resumeDir.mkdir();
-			resume = "\\Users\\" + resume + "\\resume.txt";
+			resumePath = "\\Users\\" + resume + "\\resume.txt";
         } else {
         	File resumeDir = new File("bin\\Users\\" + resume);
 			resumeDir.mkdir();
-        	resume = "bin\\Users\\" + resume + "\\resume.txt";
+			resumePath = "bin\\Users\\" + resume + "\\resume.txt";
         }
-		if (checkFile(resume)) {
+		if (checkFile(resumePath)) {
 			do {
 				System.out.printf("%n1. Display Resume" + "%n2. Edit Resume" + "%n9. Return" + "%nEnter choice: ");
 				choice = in.nextLine();
 			} while (!"1".equals(choice) && !"2".equals(choice) && !"9".equals(choice));
 			if (choice.equals("1")) {
-				readResume(resume);
+				readResume(resumePath);
 				displayResume();
 			} else if (choice.equals("2")) {
 				editResume();
-				writeResume(resume);
+				writeResume(resumePath);
 			}  else if (choice.equals("9")) {
 				return;
 			}
@@ -199,7 +200,7 @@ public class ResumeHandler {
 			System.out.print("Would you like to create one? (Y/N) : ");
 			if ("y".equalsIgnoreCase(in.nextLine())) {
 				createResume();
-				writeResume(resume);
+				writeResume(resumePath);
 			} else {
 				return;
 			}
