@@ -12,7 +12,5 @@ public class JobsApp {
 		UserService uS = UserService.getInstance();
 		
 		uS.welcome();
-	}
-	
-	
+	}	
 }

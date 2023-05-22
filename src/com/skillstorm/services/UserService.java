@@ -111,7 +111,8 @@ public final class UserService {
 	
 	private void createUser(String email) {
 		String id = String.valueOf(users.size());
-		System.out.printf("%nEnter password (cannot contain leading or trailing spaces): ");
+		System.out.printf("%nPassword must be a minimum of 4 characters (leading or trailing white space is removed).%n"
+						+ "Enter password: ");
 		String password = createPassword(id);
 		
 		System.out.printf("%nEnter first name: ");
@@ -197,7 +198,8 @@ public final class UserService {
 		password = readPassword();
 		
 		if (checkPassword(currentUser, password)) {
-			System.out.printf("%nEnter your new password (cannot contain leading or trailing spaces): ");
+			System.out.printf("%nPassword must be a minimum of 4 characters, leading or trailing white space is removed.%n"
+					+ "Enter password: ");
 			password = createPassword(currentUser.getId());
 			
 			currentUser.setPassword(password);			
@@ -380,6 +382,12 @@ public final class UserService {
 
 	private String createPassword(String id) {
 		String password = readPassword();
+		
+		while (password.length() < 4) {
+			System.out.printf("%nPassword must be at least 4 characters (leading or trailing white space is removed).%n"
+							+ "Try again. Enter password: ");
+			password = readPassword();
+		}
 
 		System.out.printf("%nConfirm password: ");
 
