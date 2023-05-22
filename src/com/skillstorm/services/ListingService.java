@@ -81,7 +81,7 @@ public class ListingService {
 	}
 
 	// this method adds a listing to the map and file
-	public void addListing(Job j) {
+	private void addListing(Job j) {
 		if (jobs.isEmpty()) { // checks if job map is empty
 			updateListings(j, false); // if so add the job to file
 			jobs.put(j.getId(), j); // add job to jobs map
