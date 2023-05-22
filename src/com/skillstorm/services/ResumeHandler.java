@@ -185,12 +185,12 @@ public class ResumeHandler {
 			resumePath = "bin\\Users\\" + resume + "\\resume.txt";
         }
 		if (checkFile(resumePath)) {
+			readResume(resumePath);
 			do {
 				System.out.printf("%n1. Display Resume" + "%n2. Edit Resume" + "%n9. Previous Menu" + "%nEnter choice: ");
 				choice = in.nextLine();
 			} while (!"1".equals(choice) && !"2".equals(choice) && !"9".equals(choice));
 			if (choice.equals("1")) {
-				readResume(resumePath);
 				displayResume();
 			} else if (choice.equals("2")) {
 				editResume();
