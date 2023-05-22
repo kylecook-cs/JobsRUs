@@ -1,5 +1,4 @@
 package com.skillstorm.services;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,6 +11,7 @@ import java.util.Scanner;
 
 // This class is a handler for a Resume file 
 public class ResumeHandler {
+	
 	private ArrayList<String> resume = new ArrayList<>();
 	private boolean flag = true;
 	private static Scanner in = new Scanner(System.in);
@@ -32,7 +32,7 @@ public class ResumeHandler {
 			e.printStackTrace();
 		}
 	}
-
+	
 	// This method will take in an ArrayList that contains all the lines
 	// of a Resume file and displays it
 	private void displayResume() {
@@ -40,7 +40,7 @@ public class ResumeHandler {
 			System.out.println(line); // displays line
 		}
 	}
-
+	
 	// This method is to prompt user for header section data of Resume file
 	private void header() {
 		try {
@@ -59,7 +59,7 @@ public class ResumeHandler {
 			resume.add(4, "*EDUCATION*");
 		}
 	}
-
+	
 	// This method is to prompt user for education section data of Resume file
 	private void education() {
 		flag = true;
@@ -97,7 +97,7 @@ public class ResumeHandler {
 			}
 		}
 	}
-
+	
 	// This method is to prompt user for experience section data of Resume file
 	private void experience() {
 		flag = true;
@@ -132,7 +132,7 @@ public class ResumeHandler {
 			}
 		}
 	}
-
+	
 	// This method is called to create the ArrayList that will hold lines of the
 	// Resume file
 	private void createResume() {
@@ -141,7 +141,7 @@ public class ResumeHandler {
 		education();
 		experience();
 	}
-
+	
 	// This method is used to edit sections of a Resume file
 	private void editResume() {
 		String choice = "";
@@ -152,6 +152,7 @@ public class ResumeHandler {
 				System.out.println("\n1. Header Section");
 				System.out.println("2. Education Section");
 				System.out.println("3. Experience Section");
+				System.out.println("9. Previous Menu");
 				System.out.print("Which section of your resume would you like to edit?: ");
 				choice = in.nextLine();
 			} while (!"1".equals(choice) && !"2".equals(choice) && !"3".equals(choice));
@@ -161,6 +162,8 @@ public class ResumeHandler {
 				education();
 			} else if (choice.equals("3")) {
 				experience();
+			} else {
+				return;
 			}
 			System.out.print("\nWould you like to edit another section? (Y/N): ");
 			if (!"y".equalsIgnoreCase(in.nextLine())) {
@@ -168,30 +171,29 @@ public class ResumeHandler {
 			}
 		} while (flag);
 	}
-
+	
 	public void resumeOptions(String resume) {
 		String choice = "";
-		String resumePath = "";
 		if (System.getProperty("user.dir").endsWith("bin")) {
 			File resumeDir = new File("\\Users\\" + resume);
 			resumeDir.mkdir();
-			resumePath = "\\Users\\" + resume + "\\resume.txt";
+			resume = "\\Users\\" + resume + "\\resume.txt";
         } else {
         	File resumeDir = new File("bin\\Users\\" + resume);
 			resumeDir.mkdir();
-			resumePath = "bin\\Users\\" + resume + "\\resume.txt";
+        	resume = "bin\\Users\\" + resume + "\\resume.txt";
         }
-		if (checkFile(resumePath)) {
+		if (checkFile(resume)) {
 			do {
-				System.out.printf("%n1. Display Resume" + "%n2. Edit Resume" + "%n9. Return" + "%nEnter choice: ");
+				System.out.printf("%n1. Display Resume" + "%n2. Edit Resume" + "%n9. Previous Menu" + "%nEnter choice: ");
 				choice = in.nextLine();
 			} while (!"1".equals(choice) && !"2".equals(choice) && !"9".equals(choice));
 			if (choice.equals("1")) {
-				readResume(resumePath);
+				readResume(resume);
 				displayResume();
 			} else if (choice.equals("2")) {
 				editResume();
-				writeResume(resumePath);
+				writeResume(resume);
 			}  else if (choice.equals("9")) {
 				return;
 			}
@@ -200,18 +202,17 @@ public class ResumeHandler {
 			System.out.print("Would you like to create one? (Y/N) : ");
 			if ("y".equalsIgnoreCase(in.nextLine())) {
 				createResume();
-				writeResume(resumePath);
+				writeResume(resume);
 			} else {
 				return;
 			}
 		}
 		resumeOptions(resume);
 	}
-
+	
 	private boolean checkFile(String fileName) {
 		return new File(fileName).exists();
 	}
-
 	// This method will create a Resume file based on user prompt stored in
 	// ArrayList
 	private void writeResume(String filePath) {

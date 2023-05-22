@@ -282,7 +282,7 @@ public final class UserService {
 				if ("y".equalsIgnoreCase(choice1)) {
 					continue;
 				} else {
-					System.out.printf("%nReturning to previuos menu...%n%n");
+					System.out.printf("%nReturning to previous menu...%n%n");
 					return;
 				}
 			}

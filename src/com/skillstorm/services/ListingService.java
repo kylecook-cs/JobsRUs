@@ -106,12 +106,12 @@ public class ListingService {
 		String option = ""; // placeholder for user's response
 		System.out.println("\n** Job Browser **");
 		while (again) {
-			System.out.println("\nBrowse options: " + "\n1. All" + "\n2. Filter" +"\n3. Return");
+			System.out.println("\nBrowse options: " + "\n1. All" + "\n2. Filter" +"\n9. Previous Menu");
 			do {
 				System.out.print("Please enter choice: ");
 				option = in.nextLine();
 
-			} while (!"1".equals(option) && !"2".equals(option) && !"3".equals(option)); // check for user input to match desired answer set
+			} while (!"1".equals(option) && !"2".equals(option) && !"9".equals(option)); // check for user input to match desired answer set
 			if (option.equals("1")) {
 				displayAllListings(); // display all the available job listings
 			} else if (option.equals("2")){
