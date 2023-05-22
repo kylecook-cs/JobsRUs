@@ -176,9 +176,9 @@ public class ResumeHandler {
 		String choice = "";
 		String resumePath = "";
 		if (System.getProperty("user.dir").endsWith("bin")) {
-			File resumeDir = new File("\\Users\\" + resume);
+			File resumeDir = new File("Users\\" + resume);
 			resumeDir.mkdir();
-			resumePath = "\\Users\\" + resume + "\\resume.txt";
+			resumePath = "Users\\" + resume + "\\resume.txt";
         } else {
         	File resumeDir = new File("bin\\Users\\" + resume);
 			resumeDir.mkdir();
