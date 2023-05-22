@@ -149,9 +149,9 @@ public class ResumeHandler {
 		System.out.println("\nWelcome to JOBS R US's Resume Editor");
 		do {
 			do {
-				System.out.println("\n1 - Header Section");
-				System.out.println("2 - Education Section");
-				System.out.println("3 - Experience Section");
+				System.out.println("\n1. Header Section");
+				System.out.println("2. Education Section");
+				System.out.println("3. Experience Section");
 				System.out.print("Which section of your resume would you like to edit?: ");
 				choice = in.nextLine();
 			} while (!"1".equals(choice) && !"2".equals(choice) && !"3".equals(choice));
