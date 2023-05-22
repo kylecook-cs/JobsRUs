@@ -20,9 +20,14 @@ public final class UserService {
 	
 	private HashMap<String, User> users;
 	private User currentUser;
-	final private String usersFile = "src\\Users\\Users.csv";
-		
-	private UserService () {
+	final private String usersFile;
+	
+	private UserService() {
+		if (System.getProperty("user.dir").endsWith("bin")) {
+			usersFile = "Users\\Users.csv";
+		} else {
+			usersFile = "bin\\Users\\Users.csv";
+		}
 		users = readUsers();
 	}
 	
@@ -57,7 +62,7 @@ public final class UserService {
 		do {
 			System.out.printf("%n1. Log in"
 							+ "%n2. Create account"
-							+ "%n3. Go back to main menu"
+							+ "%n3. Go back to start menu"
 							+ "%nEnter choice: ");
 			choice = in.nextLine().trim().replaceAll("[\\D]", "");
 		} while (!"1".equals(choice) && !"2".equals(choice) && !"3".equals(choice));
@@ -92,7 +97,7 @@ public final class UserService {
 				if ("y".equalsIgnoreCase(choice1)) {
 					continue;
 				} else {
-					System.out.printf("%nReturning to main menu...%n%n");
+					System.out.printf("%nReturning to start menu...%n%n");
 					return;
 				}
 			}
@@ -105,8 +110,9 @@ public final class UserService {
 	}
 	
 	private void createUser(String email) {
+		String id = String.valueOf(users.size());
 		System.out.printf("%nEnter password (cannot contain leading or trailing spaces): ");
-		String password = createPassword();
+		String password = createPassword(id);
 		
 		System.out.printf("%nEnter first name: ");
 		String firstName = in.nextLine().trim();
@@ -115,15 +121,13 @@ public final class UserService {
 		String lastName = in.nextLine().trim();
 		
 		System.out.printf("%nEnter phone number: ");
-		String phone = in.nextLine().trim().replaceAll("[\\D]", "");
-		
-		String id = String.valueOf(users.size());
+		String phone = in.nextLine().trim().replaceAll("[\\D]", "");		
 		
 		currentUser = new User(id, password, firstName, lastName, email, phone);
 		
 		addUser(currentUser);
 		
-		System.out.printf("%nThank you for choosing Jobs-R-Us, %s!%n"
+		System.out.printf("%nThank you for choosing JOBS-R-Us, %s!%n"
 						+ "What would you like to do now?%n", firstName);
 		userOptions();
 	}
@@ -144,8 +148,7 @@ public final class UserService {
 			User user = users.get(email);
 			if (checkPassword(user, password)) {
 				currentUser = user;
-				System.out.printf("%nHello, %s! Good to see you again!%n"
-								+ "What would you like to do now?%n", currentUser.getFirstName());
+				System.out.printf("%nHello, %s! Good to see you again!%n", currentUser.getFirstName());
 				userOptions();
 			} else {
 				System.out.printf("%nInvalid password. Please try again.%n%n");
@@ -163,10 +166,11 @@ public final class UserService {
 		if (currentUser == null) {
 			return;
 		} else {
+			System.out.printf("%n%s's User Panel: %n", currentUser.getFirstName());
 			String choice = "";
 			do {
 				System.out.printf("%n1. Browse job listings" + "%n2. Edit my profile" + "%n3. View or edit my resume"
-						+ "%n4. Change password" + "%n9. Log out and return to main menu" + "%nEnter choice: ");
+						+ "%n4. Change password" + "%n9. Log out and return to start menu" + "%nEnter choice: ");
 				choice = in.nextLine().trim().replaceAll("[\\D]", "");
 			} while (!"1".equals(choice) && !"2".equals(choice) && !"3".equals(choice) && !"4".equals(choice) && !"9".equals(choice));
 
@@ -194,7 +198,7 @@ public final class UserService {
 		
 		if (checkPassword(currentUser, password)) {
 			System.out.printf("%nEnter your new password (cannot contain leading or trailing spaces): ");
-			password = createPassword();
+			password = createPassword(currentUser.getId());
 			
 			currentUser.setPassword(password);			
 			updateUsersMap(currentUser);
@@ -241,23 +245,23 @@ public final class UserService {
 	}
 	
 	private void displayUserInfo(User u) {
-		System.out.printf("%nName: %s%nEmail: %s%nPhone number: %s%n", 
-				(u.getFirstName() + " " + u.getLastName()), u.getEmail(), u.getPhoneNumber());
+		System.out.printf("%nName: %s%nEmail: %s%nPhone number: %s%n", (u.getFirstName() + " " + u.getLastName()),
+				u.getEmail(), u.getPhoneNumber());
 	}
 
 	private void updateName() {
 		System.out.printf("%nEnter first name: ");
 		String firstName = in.nextLine().trim();
-		
+
 		System.out.printf("%nEnter last name: ");
 		String lastName = in.nextLine().trim();
-		
+
 		currentUser.setFirstName(firstName);
 		currentUser.setLastName(lastName);
 		updateUsersMap(currentUser);
 		System.out.printf("%nName updated successfully, %s.%n", (firstName + " " + lastName));
 	}
-	
+
 	private void updateEmail() {
 		String newEmail = "";
 		String choice1 = "";
@@ -271,8 +275,7 @@ public final class UserService {
 				continue;
 			} else if (checkUserExists(newEmail)) {
 				System.out.printf(
-						"%n**Error**: email is already associated with an existing account.%n" 
-					  + "Try again? (Y/N): ");
+						"%n**Error**: email is already associated with an existing account.%n" + "Try again? (Y/N): ");
 				choice1 = in.nextLine().trim().replaceAll("[^a-zA-Z]", "");
 				if ("y".equalsIgnoreCase(choice1)) {
 					continue;
@@ -281,15 +284,15 @@ public final class UserService {
 					return;
 				}
 			}
-			
+
 			System.out.printf("%nYour new username will be: '%s'. Is this corret? (Y/N): ", newEmail);
 			choice2 = in.nextLine().trim().replaceAll("[^a-zA-Z]", "");
 		} while (!"y".equalsIgnoreCase(choice2));
-		
+
 		updateMapKey(currentUser, newEmail);
 		System.out.printf("%nEmail updated successfully: %s.%n", newEmail);
 	}
-	
+
 	private void updateMapKey(User u, String newEmail) {
 		users.remove(currentUser.getEmail());
 		currentUser.setEmail(newEmail);
@@ -298,15 +301,16 @@ public final class UserService {
 
 	private void updatePhone() {
 		System.out.printf("%nEnter new phone number: ");
-		String phone = in.nextLine().trim().replaceAll("[\\D]", "");	
-		
+		String phone = in.nextLine().trim().replaceAll("[\\D]", "");
+
 		currentUser.setPhoneNumber(phone);
 		updateUsersMap(currentUser);
 		System.out.printf("%nPhone number updated successfully: %s.%n", phone);
 	}
 
 	private boolean checkPassword(User user, String password) {
-		return user.getPassword().equals(password);
+		
+		return SecGenerator.getInstance().validatePW(user.getId(), user.getPassword(), password);
 	}
 
 	private void logOut() {
@@ -316,9 +320,9 @@ public final class UserService {
 
 	private void goBrowse() {
 		ListingService lS = ListingService.getInstance();
-        lS.browseJobs();
+		lS.browseJobs();
 	}
-	
+
 	private HashMap<String, User> readUsers() {
 		HashMap<String, User> users = new HashMap<>();
 		try (BufferedReader br = new BufferedReader(new FileReader(usersFile))) {
@@ -337,17 +341,17 @@ public final class UserService {
 		}
 		return users;
 	}
-			
+
 	// this method updates the file with map's values
-		private void updateUsers(User u, boolean flag) {
-			try (BufferedWriter bw = new BufferedWriter(new FileWriter(usersFile, flag))) {
-				String userData = u.toString();
-				bw.append(userData); // append user to file
-				bw.newLine();
-			} catch (IOException e) {
-				System.out.println("Exception caught appending users file");
-			}
+	private void updateUsers(User u, boolean flag) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(usersFile, flag))) {
+			String userData = u.toString();
+			bw.append(userData); // append user to file
+			bw.newLine();
+		} catch (IOException e) {
+			System.out.println("Exception caught appending users file");
 		}
+	}
 
 	// this method used to loop through users map and update the file
 	private void updateFileLoop() {
@@ -360,28 +364,27 @@ public final class UserService {
 
 	// this method adds a user to the map and file
 	private void addUser(User u) {
-		if (users.isEmpty()) { // checks if users map is empty
-			updateUsers(u, false); // if so add the user to file
+		if (users.isEmpty()) {
+			updateUsers(u, false);
 		} else {
 			updateUsers(u, true);
 		}
 		
-		users.put(u.getEmail(), u); // add user to users map
+		users.put(u.getEmail(), u);
 	}
-	
-	
+
 	private void updateUsersMap(User u) {
-			users.replace(u.getEmail(), u);
-			updateFileLoop();
+		users.replace(u.getEmail(), u);
+		updateFileLoop();
 	}
-	
-	private static String createPassword() {
+
+	private String createPassword(String id) {
 		String password = readPassword();
-		
+
 		System.out.printf("%nConfirm password: ");
-		
+
 		String confirmPassword = readPassword();
-		
+
 		while (!password.equals(confirmPassword)) {
 			System.out.printf("%nPasswords do not match. Try again.");
 			System.out.printf("%nEnter password: ");
@@ -390,17 +393,17 @@ public final class UserService {
 			confirmPassword = readPassword();
 		}
 		
-		return password;
+		return SecGenerator.getInstance().makePassword(id, password);
 	}
-		
-	private static String readPassword() {
+
+	private String readPassword() {
 		if (System.console() != null) {
 			return String.valueOf(System.console().readPassword()).trim();
 		} else {
 			return in.nextLine().trim();
 		}
 	}
-	
+
 	public static UserService getInstance() {
 		if (uService == null) {
 			uService = new UserService();

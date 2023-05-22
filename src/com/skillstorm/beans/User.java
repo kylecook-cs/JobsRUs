@@ -1,6 +1,6 @@
 package com.skillstorm.beans;
 
-public class User {
+public final class User {
 	
 	private String id;
 	private String password;
@@ -9,7 +9,6 @@ public class User {
 	private String email;
 	private String phoneNumber;
 	private String resume;
-	
 	
 	public User(String[] data) {
 		id = data[0];
@@ -81,10 +80,10 @@ public class User {
 
 	public String getResume() {
 		return resume;
-	}
+	}	
 	
 	@Override
 	public String toString() {
 		return String.format("%s!!!%s!!!%s!!!%s!!!%s!!!%s!!!%s", id, password, firstName, lastName, email, phoneNumber, resume);
-	}		
+	}
 }
