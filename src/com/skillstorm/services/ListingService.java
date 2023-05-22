@@ -17,11 +17,16 @@ import com.skillstorm.beans.Job;
 public class ListingService {
 
 	static Scanner in = new Scanner(System.in); // scanner object
-	final private String listingFile = "src\\Listings\\Listings.csv"; // file path
+	final private String listingFile; // file path
 	private HashMap<String, Job> jobs; // map that holds all the job listings
 	private static ListingService instance = null;
 
 	private ListingService() { // constructor that creates map of all current job postings in file
+		if (System.getProperty("user.dir").endsWith("bin")) {
+            listingFile = "Listings\\Listings.csv";
+        } else {
+            listingFile = "bin\\Listings\\Listings.csv";
+        }
 		this.jobs = readListings();
 	}
 

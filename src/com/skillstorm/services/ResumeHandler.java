@@ -171,6 +171,11 @@ public class ResumeHandler {
 
 	public void resumeOptions(String resume) {
 		String choice = "";
+		if (System.getProperty("user.dir").endsWith("bin")) {
+			resume = "\\Users\\" + resume + "\\resume.txt";
+        } else {
+        	resume = "bin\\Users\\" + resume + "\\resume.txt";
+        }
 		if (checkFile(resume)) {
 			do {
 				System.out.printf("%n1. Display Resume" + "%n2. Edit Resume" + "%n9. Return" + "%nEnter choice: ");
