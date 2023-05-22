@@ -54,7 +54,6 @@ private static SecGenerator gen = null;
 				sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
 			}
             hashed = sb.toString();
-            System.out.println(hashed);
 		} catch (NoSuchAlgorithmException e) {
 			System.out.println("MD Exception");
 		}
