@@ -111,7 +111,7 @@ public class ResumeHandler {
 			String position = in.nextLine();
 			System.out.print("\nPlease enter the company name: ");
 			String company = in.nextLine();
-			System.out.print("\nPlease enter the time frame (ex - October 2007 -  May 2014: ");
+			System.out.print("\nPlease enter the time frame (ex - October 2007 -  May 2014): ");
 			String time = in.nextLine();
 			resume.add(i, "  " + position + " - " + company + "                    " + time);
 			System.out.print("\nWould you like to add a description bullet? (Y/N): ");
@@ -172,8 +172,12 @@ public class ResumeHandler {
 	public void resumeOptions(String resume) {
 		String choice = "";
 		if (System.getProperty("user.dir").endsWith("bin")) {
+			File resumeDir = new File("\\Users\\" + resume);
+			resumeDir.mkdir();
 			resume = "\\Users\\" + resume + "\\resume.txt";
         } else {
+        	File resumeDir = new File("bin\\Users\\" + resume);
+			resumeDir.mkdir();
         	resume = "bin\\Users\\" + resume + "\\resume.txt";
         }
 		if (checkFile(resume)) {
@@ -196,6 +200,8 @@ public class ResumeHandler {
 			if ("y".equalsIgnoreCase(in.nextLine())) {
 				createResume();
 				writeResume(resume);
+			} else {
+				return;
 			}
 		}
 		resumeOptions(resume);
