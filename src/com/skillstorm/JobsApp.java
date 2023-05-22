@@ -47,10 +47,11 @@ public class JobsApp {
 	}
 	
 	public static void userTest() {
+		System.out.println("ENCODING: " + System.getProperty("file.encoding"));
 		UserService uS = UserService.getInstance();
 		
 		uS.welcome();
 	}
-
+	
 	
 }
