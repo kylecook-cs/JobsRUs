@@ -196,6 +196,8 @@ public class ResumeHandler {
 			if ("y".equalsIgnoreCase(in.nextLine())) {
 				createResume();
 				writeResume(resume);
+			} else {
+				return;
 			}
 		}
 		resumeOptions(resume);
