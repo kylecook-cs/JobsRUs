@@ -155,7 +155,7 @@ public class ResumeHandler {
 				System.out.println("9. Previous Menu");
 				System.out.print("Which section of your resume would you like to edit?: ");
 				choice = in.nextLine();
-			} while (!"1".equals(choice) && !"2".equals(choice) && !"3".equals(choice));
+			} while (!"1".equals(choice) && !"2".equals(choice) && !"3".equals(choice) && !"9".equals(choice));
 			if (choice.equals("1")) {
 				header();
 			} else if (choice.equals("2")) {
