@@ -17,7 +17,8 @@ public class ResumeHandler {
 	private static Scanner in = new Scanner(System.in);
 	
 	// This method is to read the resume file and display it
-	public void readResume(String filePath) {
+	private void readResume(String filePath) {
+		resume.clear();
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) { // read in the resume file
 			String line;
 			while ((line = br.readLine()) != null) { // while there is a line in the resume file
@@ -26,7 +27,7 @@ public class ResumeHandler {
 				}
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println("That file is not found");
+			System.out.println("\nYour Resume file was not found.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -34,63 +35,63 @@ public class ResumeHandler {
 
 	// This method will take in an ArrayList that contains all the lines
 	// of a Resume file and displays it
-	public void displayResume() {
+	private void displayResume() {
 		for (String line : resume) { // iterates lines in ArrayList holding Resume file lines
 			System.out.println(line); // displays line
 		}
 	}
 
 	// This method is to prompt user for header section data of Resume file
-	public void header() {
+	private void header() {
 		try {
 			resume.removeAll(resume.subList(0, 4)); // removes header section data from ArrayList
 		} catch (IndexOutOfBoundsException e) { // catches if nothing exists
 		} // prompt user for data for header section
-		System.out.print("Please enter the name you would like to appear on the resume: ");
+		System.out.print("\nPlease enter the name you would like to have appear on the resume: ");
 		resume.add(0, "                              " + in.nextLine());
-		System.out.print("\nPlease enter the address you would like to appear on the resume: ");
+		System.out.print("\nPlease enter the address you would like to have appear on the resume: ");
 		resume.add(1, "                    " + in.nextLine());
-		System.out.print("\nPlease enter the email you would like to appear on the resume: ");
+		System.out.print("\nPlease enter the email you would like to have appear on the resume: ");
 		resume.add(2, "                           " + in.nextLine());
-		System.out.print("\nPlease enter the phone number you would like to appear on the resume: ");
+		System.out.print("\nPlease enter the phone number you would like to have appear on the resume: ");
 		resume.add(3, "                             " + in.nextLine());
-		if (!resume.contains("Education")) { // checks if Education section is made if not it creates one
-			resume.add(4, "Education");
+		if (!resume.contains("*EDUCATION*")) { // checks if Education section is made if not it creates one
+			resume.add(4, "*EDUCATION*");
 		}
 	}
 
 	// This method is to prompt user for education section data of Resume file
-	public void education() {
+	private void education() {
 		flag = true;
 		System.out.println("\nEDUCATION");
 		try {
-			for (int i = resume.indexOf("Education") + 1; !resume.get(i).equals("Experience");) {
-				resume.remove(resume.indexOf("Education") + 1); // removes education section data from ArrayList
+			for (int i = resume.indexOf("*EDUCATION*") + 1; !resume.get(i).equals("*EXPERIENCE*");) {
+				resume.remove(resume.indexOf("*EDUCATION*") + 1); // removes education section data from ArrayList
 			}
 		} catch (IndexOutOfBoundsException e) { // catches if nothing exists
 		} // prompt user for data for education section
-		for (int i = resume.indexOf("Education") + 1;; i++) {
+		for (int i = resume.indexOf("*EDUCATION*") + 1;; i++) {
 			System.out.print("\nPlease enter your major or certification title: ");
 			String major = in.nextLine();
 			System.out.print("\nPlease enter the name of your school or organization: ");
 			String school = in.nextLine();
 			resume.add(i, "  " + major + " - " + school);
 			System.out.print("\nWould you like to add any accolades? (Y/N): ");
-			if (in.nextLine().equalsIgnoreCase("y")) {
+			if ("y".equalsIgnoreCase(in.nextLine())) {
 				do {
 					System.out.print("\nEnter accolade: ");
 					resume.add(++i, "   \u2022\t" + in.nextLine());
 					System.out.print("\nWould you like to add another? (Y/N): ");
-					if (!(in.nextLine().equalsIgnoreCase("y"))) {
+					if (!"y".equalsIgnoreCase(in.nextLine())) {
 						flag = false;
 					}
 				} while (flag);
 				flag = true;
 			}
 			System.out.print("\nWould you like to add another degree or certification? (Y/N): ");
-			if (!in.nextLine().equalsIgnoreCase("y")) {
-				if (!resume.contains("Experience")) {
-					resume.add("Experience");
+			if (!"y".equalsIgnoreCase(in.nextLine())) {
+				if (!resume.contains("*EXPERIENCE*")) {
+					resume.add("*EXPERIENCE*");
 				}
 				break;
 			}
@@ -98,14 +99,14 @@ public class ResumeHandler {
 	}
 
 	// This method is to prompt user for experience section data of Resume file
-	public void experience() {
+	private void experience() {
 		flag = true;
 		System.out.println("\nEXPERIENCE");
 		try { // removes experience section data from ArrayList
-			resume.removeAll(resume.subList(resume.indexOf("Experience") + 1, resume.size()));
+			resume.removeAll(resume.subList(resume.indexOf("*EXPERIENCE*") + 1, resume.size()));
 		} catch (IndexOutOfBoundsException e) { // catches if nothing exists
 		} // prompt user for data for experience section
-		for (int i = resume.indexOf("Experience") + 1;; i++) {
+		for (int i = resume.indexOf("*EXPERIENCE*") + 1;; i++) {
 			System.out.print("\nPlease enter the position title: ");
 			String position = in.nextLine();
 			System.out.print("\nPlease enter the company name: ");
@@ -114,19 +115,19 @@ public class ResumeHandler {
 			String time = in.nextLine();
 			resume.add(i, "  " + position + " - " + company + "                    " + time);
 			System.out.print("\nWould you like to add a description bullet? (Y/N): ");
-			if (in.nextLine().equalsIgnoreCase("y")) {
+			if ("y".equalsIgnoreCase(in.nextLine())) {
 				do {
 					System.out.print("\nEnter description: ");
 					resume.add(++i, "   \u2022\t" + in.nextLine());
 					System.out.print("\nWould you like to add another? (Y/N): ");
-					if (!in.nextLine().equalsIgnoreCase("y")) {
+					if (!"y".equalsIgnoreCase(in.nextLine())) {
 						flag = false;
 					}
 				} while (flag);
 				flag = true;
 			}
 			System.out.print("\nWould you like to add more job experience? (Y/N): ");
-			if (!in.nextLine().equalsIgnoreCase("y")) {
+			if (!"y".equalsIgnoreCase(in.nextLine())) {
 				break;
 			}
 		}
@@ -134,70 +135,65 @@ public class ResumeHandler {
 
 	// This method is called to create the ArrayList that will hold lines of the
 	// Resume file
-	public void createResume() {
-		System.out.println("Welcome to the Resume Builder\n");
+	private void createResume() {
+		System.out.println("\nWelcome to JOBS R US's Resume Builder\n");
 		header();
 		education();
 		experience();
 	}
 
 	// This method is used to edit sections of a Resume file
-	public void editResume() {
-		int choice = 0;
+	private void editResume() {
+		String choice = "";
 		flag = true;
+		System.out.println("\nWelcome to JOBS R US's Resume Editor");
 		do {
-			System.out.println("Welcome to the Resume Editor");
 			do {
-				System.out.println("1 - Header Section");
+				System.out.println("\n1 - Header Section");
 				System.out.println("2 - Education Section");
 				System.out.println("3 - Experience Section");
 				System.out.print("Which section of your resume would you like to edit?: ");
-				choice = Integer.parseInt(in.nextLine());
-			} while (choice != 1 && choice != 2 && choice != 3);
-			switch (choice) {
-			case 1:
+				choice = in.nextLine();
+			} while (!"1".equals(choice) && !"2".equals(choice) && !"3".equals(choice));
+			if (choice.equals("1")) {
 				header();
-				break;
-			case 2:
+			} else if (choice.equals("2")) {
 				education();
-				break;
-			case 3:
+			} else if (choice.equals("3")) {
 				experience();
-				break;
 			}
-			System.out.print("Would you like to edit another section? (Y/N): ");
-			if (!in.nextLine().equalsIgnoreCase("y")) {
+			System.out.print("\nWould you like to edit another section? (Y/N): ");
+			if (!"y".equalsIgnoreCase(in.nextLine())) {
 				flag = false;
 			}
 		} while (flag);
 	}
 
-	public void resumeOptions(String name) {
-		String fileName = "src\\Users\\" + name + ".txt";
-		int choice = 0;
-		if (checkFile(fileName)) {
+	public void resumeOptions(String resume) {
+		String choice = "";
+		if (checkFile(resume)) {
 			do {
-				System.out.printf("%n1. Read Resume" + "%n2. Edit Resume" + "%n9. Return" + "%nEnter choice: ");
-				choice = Integer.parseInt(in.nextLine().trim().replaceAll("[\\D]", "")); // removes all non-digit
-																							// characters
-			} while (choice != 1 && choice != 2 && choice != 9);
-
-			if (choice == 1) {
-				readResume(fileName);
-			} else if (choice == 2) {
+				System.out.printf("%n1. Display Resume" + "%n2. Edit Resume" + "%n9. Return" + "%nEnter choice: ");
+				choice = in.nextLine();
+			} while (!"1".equals(choice) && !"2".equals(choice) && !"9".equals(choice));
+			if (choice.equals("1")) {
+				readResume(resume);
+				displayResume();
+			} else if (choice.equals("2")) {
 				editResume();
-				writeResume(fileName);
-			} else if (choice == 3) {
-				editResume();
-				writeResume(fileName);
+				writeResume(resume);
+			}  else if (choice.equals("9")) {
+				return;
 			}
 		} else {
-			System.out.println("You dont have a resume on file.");
+			System.out.println("\nYou don't have a resume on file.");
 			System.out.print("Would you like to create one? (Y/N) : ");
 			if ("y".equalsIgnoreCase(in.nextLine())) {
 				createResume();
+				writeResume(resume);
 			}
 		}
+		resumeOptions(resume);
 	}
 
 	private boolean checkFile(String fileName) {
@@ -206,7 +202,7 @@ public class ResumeHandler {
 
 	// This method will create a Resume file based on user prompt stored in
 	// ArrayList
-	public void writeResume(String filePath) {
+	private void writeResume(String filePath) {
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
 			for (String line : resume) {
 				bw.write(line);
