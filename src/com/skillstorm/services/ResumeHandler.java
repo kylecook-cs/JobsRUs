@@ -193,6 +193,7 @@ public class ResumeHandler {
 				readResume(resumePath);
 				displayResume();
 			} else if (choice.equals("2")) {
+				readResume(resumePath);
 				editResume();
 				writeResume(resumePath);
 			}  else if (choice.equals("9")) {
