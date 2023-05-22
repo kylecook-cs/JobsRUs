@@ -152,6 +152,7 @@ public class ResumeHandler {
 				System.out.println("\n1. Header Section");
 				System.out.println("2. Education Section");
 				System.out.println("3. Experience Section");
+				System.out.println("9. Previous Menu");
 				System.out.print("Which section of your resume would you like to edit?: ");
 				choice = in.nextLine();
 			} while (!"1".equals(choice) && !"2".equals(choice) && !"3".equals(choice));
@@ -161,6 +162,8 @@ public class ResumeHandler {
 				education();
 			} else if (choice.equals("3")) {
 				experience();
+			} else {
+				return;
 			}
 			System.out.print("\nWould you like to edit another section? (Y/N): ");
 			if (!"y".equalsIgnoreCase(in.nextLine())) {
@@ -182,7 +185,7 @@ public class ResumeHandler {
         }
 		if (checkFile(resume)) {
 			do {
-				System.out.printf("%n1. Display Resume" + "%n2. Edit Resume" + "%n9. Return" + "%nEnter choice: ");
+				System.out.printf("%n1. Display Resume" + "%n2. Edit Resume" + "%n9. Previous Menu" + "%nEnter choice: ");
 				choice = in.nextLine();
 			} while (!"1".equals(choice) && !"2".equals(choice) && !"9".equals(choice));
 			if (choice.equals("1")) {
